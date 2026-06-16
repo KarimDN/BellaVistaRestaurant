@@ -29,3 +29,7 @@ Route::middleware(['auth', \App\Http\Middleware\AdminMiddleware::class])->prefix
     Route::get('/menu',                               [AdminController::class, 'menuIndex'])         ->name('menu');
     Route::delete('/menu/{menuItem}',                 [AdminController::class, 'deleteMenuItem'])    ->name('menu.delete');
 });
+
+Route::get('/chat', function () {
+    return view('chat.index');
+})->name('chat.index');

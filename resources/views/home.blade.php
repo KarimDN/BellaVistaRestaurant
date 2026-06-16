@@ -46,6 +46,30 @@
         color: #c9a84c;
     }
     .btn-outline:hover { background: #c9a84c; color: #1a1a1a; }
+
+    #chat-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #c9a84c;
+    color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    z-index: 9999;
+    transition: transform 0.2s ease, background 0.3s;
+    }
+
+    #chat-icon:hover {
+        transform: scale(1.1);
+        background: #b8943d;
+    }
 </style>
 
 <div class="hero">
@@ -55,5 +79,7 @@
         <a href="{{ route('menu.index') }}" class="btn">View Menu</a>
         <a href="{{ route('reservations.create') }}" class="btn btn-outline">Reserve a Table</a>
     </div>
+    <!-- Floating Chat Button -->
+    <a href="{{ route('chat.index') }}" id="chat-icon">💬</a>
 </div>
 @endsection

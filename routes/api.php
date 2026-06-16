@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\MenuController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ReservationController;
+use App\Http\Controllers\API\ChatController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -28,3 +29,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::put('/reservations/{reservation}', [ReservationController::class, 'update']);
     Route::delete('/reservations/{reservation}', [ReservationController::class, 'destroy']);
 });
+
+Route::post('/chat', [ChatController::class, 'respond']);
