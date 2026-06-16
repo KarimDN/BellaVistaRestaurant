@@ -27,7 +27,19 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'required|numeric|min:0',
+        'category_id' => 'required|exists:categories,id',
+        'is_available' => 'boolean',
+        ]);
+
+        $menuItem = MenuItem::create($validated);
+        return response()->json(
+            new MenuItemResource($menuItem->load('category')), 
+            Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -35,7 +47,10 @@ class MenuController extends Controller
      */
     public function show(MenuItem $menuItem)
     {
-        return new MenuItemResource($menuItem->load('category'));
+        return response()->json(
+            new MenuItemResource($menuItem->load('category')), 
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -43,7 +58,19 @@ class MenuController extends Controller
      */
     public function update(Request $request, MenuItem $menuItem)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'sometimes|string|max:255',
+        'description' => 'nullable|string',
+        'price' => 'sometimes|numeric|min:0',
+        'category_id' => 'sometimes|exists:categories,id',
+        'is_available' => 'boolean',
+        ]);
+
+        $menuItem->update($validated);
+        return response()->json(
+            new MenuItemResource($menuItem->load('category')), 
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -51,6 +78,7 @@ class MenuController extends Controller
      */
     public function destroy(MenuItem $menuItem)
     {
-        //
+        $menuItem->delete();
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
